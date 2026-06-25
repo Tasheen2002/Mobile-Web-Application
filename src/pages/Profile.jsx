@@ -85,8 +85,8 @@ export default function Profile() {
             <span className="profile-stat-val" id="stat-count">{favoritesCount}</span>
             <span className="profile-stat-lbl">Saved Places</span>
           </div>
-          <div className="profile-stat-box" id="stat-rank">
-            <span className="profile-stat-val" id="stat-tier" style={{ fontSize: '1.1rem', padding: '4px 0' }}>
+          <div className={`profile-stat-box rank-${getTravelTier(favoritesCount).toLowerCase().replace(' ', '-')}`} id="stat-rank">
+            <span className="profile-stat-val" id="stat-tier">
               {getTravelTier(favoritesCount)}
             </span>
             <span className="profile-stat-lbl">Traveler Rank</span>

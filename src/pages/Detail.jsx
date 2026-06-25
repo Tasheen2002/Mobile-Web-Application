@@ -127,7 +127,7 @@ export default function Detail() {
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
 
   return (
-    <div className="app-container detail-container" id={`detail-page-${id}`}>
+    <div className="detail-container" id={`detail-page-${id}`}>
       {/* Hero Media Section */}
       <div className="detail-hero">
         <img src={imageUrl} alt={name} className="detail-img" />
@@ -171,7 +171,7 @@ export default function Detail() {
         <h2 className="detail-title">{name}</h2>
 
         {/* Dynamic Asynchronous Weather Widget */}
-        <div className="weather-card" id="detail-weather-widget">
+        <div className={`weather-card ${weatherLoading ? 'loading' : ''}`} id="detail-weather-widget">
           {weatherLoading ? (
             <div className="weather-loading-text" id="weather-loading">
               Fetching current weather...
@@ -209,9 +209,9 @@ export default function Detail() {
         </section>
 
         {/* Tips Section */}
-        <section className="detail-section" style={{ backgroundColor: 'var(--bg-secondary)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-glass)' }}>
-          <h4 className="detail-section-title" style={{ color: 'var(--accent)' }}>Local Insider Tips</h4>
-          <p className="detail-text" id="detail-tips-text" style={{ fontStyle: 'italic' }}>"{tips}"</p>
+        <section className="detail-tips-box" id="detail-tips-section">
+          <h4 className="detail-tips-title">Local Insider Tips</h4>
+          <p className="detail-tips-text" id="detail-tips-text">"{tips}"</p>
         </section>
 
         {/* Map Deep-link Trigger (Explicitly 52px height touch target) */}
