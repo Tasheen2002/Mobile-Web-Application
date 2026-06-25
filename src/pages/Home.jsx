@@ -63,6 +63,14 @@ export default function Home() {
 
   return (
     <div className="app-container" id="home-page">
+      {/* Welcome & Brand Title */}
+      <div className="home-welcome-header">
+        <h1 className="home-title">
+          Explore <span>Negombo</span>
+        </h1>
+        <p className="home-subtitle">Discover the lagoon city & coastal sights</p>
+      </div>
+
       {/* Search Input Section */}
       <div className="search-container">
         <svg 
@@ -80,7 +88,7 @@ export default function Home() {
           />
         </svg>
         <input 
-          type="search" 
+          type="text" 
           className="search-input" 
           placeholder="Search Negombo sights..." 
           value={searchQuery}
@@ -88,6 +96,19 @@ export default function Home() {
           aria-label="Search attractions"
           id="search-attractions"
         />
+        {searchQuery && (
+          <button
+            type="button"
+            className="search-clear-btn"
+            onClick={() => setSearchQuery('')}
+            aria-label="Clear search"
+            id="clear-search-btn"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {/* Category Scrollable Filter Tabs */}
