@@ -12,7 +12,7 @@ import { calculateDistance } from '../utils/geolocation';
 export default function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
   const { userLocation, favorites, toggleFavorite, profile } = useAppContext();
   const unit = profile.unit;
 
@@ -84,14 +84,14 @@ export default function Detail() {
   const isFavorited = favorites.includes(id);
 
   // Compute live distance
-  const distance = userLocation 
+  const distance = userLocation
     ? calculateDistance(userLocation.latitude, userLocation.longitude, latitude, longitude, unit)
     : null;
 
   // Helper to resolve Weather Code into visual cues
   const getWeatherDescription = (code) => {
     if (code === undefined || code === null) return { desc: 'Unknown', icon: '☁️' };
-    
+
     switch (code) {
       case 0:
         return { desc: 'Clear Sky', icon: '☀️' };
@@ -124,17 +124,17 @@ export default function Detail() {
   };
 
   const weatherDetails = weather ? getWeatherDescription(weather.weathercode) : null;
-  const mapLink = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ', Negombo, Sri Lanka')}`;
 
   return (
     <div className="detail-container" id={`detail-page-${id}`}>
       {/* Hero Media Section */}
       <div className="detail-hero">
         <img src={imageUrl} alt={name} className="detail-img" />
-        
+
         {/* Back navigation button (Explicitly 48x48px touch target) */}
-        <button 
-          className="detail-back-btn" 
+        <button
+          className="detail-back-btn"
           onClick={() => navigate(-1)}
           aria-label="Navigate back"
           id="detail-back-arrow"
@@ -146,7 +146,7 @@ export default function Detail() {
         </button>
 
         {/* Favorite toggle button (Explicitly 48x48px touch target) */}
-        <button 
+        <button
           className={`detail-fav-btn ${isFavorited ? 'favorited' : ''}`}
           onClick={() => toggleFavorite(id)}
           aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
@@ -215,10 +215,10 @@ export default function Detail() {
         </section>
 
         {/* Map Deep-link Trigger (Explicitly 52px height touch target) */}
-        <a 
-          href={mapLink} 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href={mapLink}
+          target="_blank"
+          rel="noopener noreferrer"
           className="maps-action-btn"
           id="detail-open-maps-btn"
         >
