@@ -58,7 +58,6 @@ export default function App() {
         {/* Elegant Footer */}
         <footer className="app-footer" id="app-footer">
           <p>© {new Date().getFullYear()} NegomboGO. Sri Lanka Tourism. All Rights Reserved.</p>
-          <p style={{ marginTop: '4px', opacity: 0.6 }}>Designed for SENG 41293: Web Application Development</p>
         </footer>
       </main>
 
