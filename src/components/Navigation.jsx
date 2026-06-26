@@ -1,10 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-/**
- * Bottom navigation bar with touch-friendly links (min 48x48px target).
- * Uses react-router-dom NavLink to automatically handle active states.
- */
 export default function Navigation() {
   return (
     <nav className="nav-container" id="bottom-navigation">
