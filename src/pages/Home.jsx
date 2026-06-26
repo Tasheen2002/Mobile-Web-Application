@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { attractionsData } from '../utils/data';
 import { calculateDistance } from '../utils/geolocation';
@@ -73,24 +73,24 @@ export default function Home() {
 
       {/* Search Input Section */}
       <div className="search-container">
-        <svg 
-          className="search-icon" 
-          xmlns="http://www.w3.org/2000/svg" 
-          fill="none" 
-          viewBox="0 0 24 24" 
+        <svg
+          className="search-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth="2.5" 
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2.5"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
-        <input 
-          type="text" 
-          className="search-input" 
-          placeholder="Search Negombo sights..." 
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search Negombo sights..."
           value={searchQuery}
           onChange={handleSearchChange}
           aria-label="Search attractions"
@@ -114,7 +114,7 @@ export default function Home() {
       {/* Category Scrollable Filter Tabs */}
       <div className="filters-scroll" role="tablist" aria-label="Attraction Categories">
         {categories.map(cat => (
-          <button 
+          <button
             key={cat}
             role="tab"
             aria-selected={selectedCategory === cat}
@@ -130,14 +130,14 @@ export default function Home() {
 
       {/* Attractions Grid with Category Transition Fade (Mapped to key for remount transition animation) */}
       {processedAttractions.length > 0 ? (
-        <div 
-          className="cards-grid fade-in-transition" 
+        <div
+          className="cards-grid fade-in-transition"
           id="attractions-grid"
           key={selectedCategory} // Remounts and triggers fade-in animation on category change
           style={{ animation: 'fadeIn 0.2s ease-out' }}
         >
           {processedAttractions.map(landmark => (
-            <AttractionCard 
+            <AttractionCard
               key={landmark.id}
               attraction={landmark}
               distance={landmark.distance}
@@ -149,19 +149,19 @@ export default function Home() {
         </div>
       ) : (
         <div className="empty-state" id="search-empty-state">
-          <svg 
-            className="empty-icon" 
-            xmlns="http://www.w3.org/2000/svg" 
-            fill="none" 
-            viewBox="0 0 24 24" 
+          <svg
+            className="empty-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
             stroke="currentColor"
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <h3 className="empty-title">No sights found</h3>
           <p className="empty-text">We couldn't find anything matching "{searchQuery}". Try selecting another category or typing different keywords.</p>
-          <button 
-            className="empty-btn" 
+          <button
+            className="empty-btn"
             onClick={() => { setSelectedCategory('All'); setSearchQuery(''); }}
             id="reset-search-btn"
           >

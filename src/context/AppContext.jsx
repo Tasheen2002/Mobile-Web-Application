@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 
 // Create AppContext
 const AppContext = createContext(null);
@@ -36,7 +36,7 @@ export function AppContextProvider({ children }) {
   };
 
   const toggleFavorite = (id) => {
-    setFavorites(prev => 
+    setFavorites(prev =>
       prev.includes(id) ? prev.filter(favId => favId !== id) : [...prev, id]
     );
   };
