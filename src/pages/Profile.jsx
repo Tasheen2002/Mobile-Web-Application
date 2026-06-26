@@ -74,97 +74,103 @@ export default function Profile() {
 
   return (
     <div className="app-container" id="profile-page">
-      {/* Traveler Stats Dashboard */}
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '16px', borderLeft: '3.5px solid var(--accent)', paddingLeft: '8px' }}>
-        Traveler Dashboard
-      </h2>
-      
-      <div className="profile-card" id="profile-dashboard">
-        <div className="profile-stats-row">
-          <div className="profile-stat-box" id="stat-bookmarks">
-            <span className="profile-stat-val" id="stat-count">{favoritesCount}</span>
-            <span className="profile-stat-lbl">Saved Places</span>
+      <div className="profile-layout-grid">
+        {/* Left Column: Traveler Stats Dashboard */}
+        <div className="profile-section-col">
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '16px', borderLeft: '3.5px solid var(--accent)', paddingLeft: '8px' }}>
+            Traveler Dashboard
+          </h2>
+          
+          <div className="profile-card" id="profile-dashboard">
+            <div className="profile-stats-row">
+              <div className="profile-stat-box" id="stat-bookmarks">
+                <span className="profile-stat-val" id="stat-count">{favoritesCount}</span>
+                <span className="profile-stat-lbl">Saved Places</span>
+              </div>
+              <div className={`profile-stat-box rank-${getTravelTier(favoritesCount).toLowerCase().replace(' ', '-')}`} id="stat-rank">
+                <span className="profile-stat-val" id="stat-tier">
+                  {getTravelTier(favoritesCount)}
+                </span>
+                <span className="profile-stat-lbl">Traveler Rank</span>
+              </div>
+            </div>
           </div>
-          <div className={`profile-stat-box rank-${getTravelTier(favoritesCount).toLowerCase().replace(' ', '-')}`} id="stat-rank">
-            <span className="profile-stat-val" id="stat-tier">
-              {getTravelTier(favoritesCount)}
-            </span>
-            <span className="profile-stat-lbl">Traveler Rank</span>
-          </div>
+        </div>
+
+        {/* Right Column: Traveler Preferences Form */}
+        <div className="profile-section-col">
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '16px', borderLeft: '3.5px solid var(--accent)', paddingLeft: '8px' }}>
+            Settings & Preferences
+          </h2>
+
+          <form className="profile-card" onSubmit={handleSubmit} id="profile-preferences-form" noValidate>
+            {/* Name Input Group */}
+            <div className="form-group">
+              <label htmlFor="traveler-name-input" className="form-label">
+                Traveler Name
+              </label>
+              <input 
+                type="text"
+                id="traveler-name-input"
+                className={`form-input ${nameError ? 'invalid' : ''}`}
+                placeholder="Enter your name"
+                value={name}
+                onChange={handleNameChange}
+                required
+                aria-describedby="name-error-message"
+              />
+              {nameError && (
+                <div className="error-message" id="name-error-message" role="alert">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: '14px', height: '14px', flexShrink: 0 }}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{nameError}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Toggle Unit Button Group */}
+            <div className="form-group">
+              <label className="form-label">Distance Units</label>
+              <div className="toggle-group" role="group" aria-label="Distance unit selection">
+                <button
+                  type="button"
+                  className={`toggle-btn ${unit === 'metric' ? 'active' : ''}`}
+                  onClick={() => setUnit('metric')}
+                  id="unit-toggle-metric"
+                >
+                  Metric (km / °C)
+                </button>
+                <button
+                  type="button"
+                  className={`toggle-btn ${unit === 'imperial' ? 'active' : ''}`}
+                  onClick={() => setUnit('imperial')}
+                  id="unit-toggle-imperial"
+                >
+                  Imperial (miles / °F)
+                </button>
+              </div>
+            </div>
+
+            {/* Submit Action Button */}
+            <button 
+              type="submit" 
+              className="submit-btn" 
+              disabled={isFormInvalid}
+              id="profile-save-btn"
+            >
+              Save Preferences
+            </button>
+
+            {/* Toast Notification Alert */}
+            {showToast && (
+              <div className="toast" id="preferences-save-toast" role="status">
+                Preferences saved successfully!
+              </div>
+            )}
+          </form>
         </div>
       </div>
-
-      {/* Traveler Preferences Form with Strict Client-Side Validation */}
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '16px', borderLeft: '3.5px solid var(--accent)', paddingLeft: '8px' }}>
-        Settings & Preferences
-      </h2>
-
-      <form className="profile-card" onSubmit={handleSubmit} id="profile-preferences-form" noValidate>
-        {/* Name Input Group */}
-        <div className="form-group">
-          <label htmlFor="traveler-name-input" className="form-label">
-            Traveler Name
-          </label>
-          <input 
-            type="text"
-            id="traveler-name-input"
-            className={`form-input ${nameError ? 'invalid' : ''}`}
-            placeholder="Enter your name"
-            value={name}
-            onChange={handleNameChange}
-            required
-            aria-describedby="name-error-message"
-          />
-          {nameError && (
-            <div className="error-message" id="name-error-message" role="alert">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: '14px', height: '14px', flexShrink: 0 }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>{nameError}</span>
-            </div>
-          )}
-        </div>
-
-        {/* Toggle Unit Button Group */}
-        <div className="form-group">
-          <label className="form-label">Distance Units</label>
-          <div className="toggle-group" role="group" aria-label="Distance unit selection">
-            <button
-              type="button"
-              className={`toggle-btn ${unit === 'metric' ? 'active' : ''}`}
-              onClick={() => setUnit('metric')}
-              id="unit-toggle-metric"
-            >
-              Metric (km / °C)
-            </button>
-            <button
-              type="button"
-              className={`toggle-btn ${unit === 'imperial' ? 'active' : ''}`}
-              onClick={() => setUnit('imperial')}
-              id="unit-toggle-imperial"
-            >
-              Imperial (miles / °F)
-            </button>
-          </div>
-        </div>
-
-        {/* Submit Action Button */}
-        <button 
-          type="submit" 
-          className="submit-btn" 
-          disabled={isFormInvalid}
-          id="profile-save-btn"
-        >
-          Save Preferences
-        </button>
-
-        {/* Toast Notification Alert */}
-        {showToast && (
-          <div className="toast" id="preferences-save-toast" role="status">
-            Preferences saved successfully!
-          </div>
-        )}
-      </form>
     </div>
   );
 }
